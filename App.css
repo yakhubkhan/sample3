@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.nav-tabs {
+  background-color: lightslategray;
+}
+a {
+  color: blue;
+}
+
+.dropdown-menu {
+  width: 300px;
+  white-space: normal;
+}
+.downPanel {
+  height: 70px;
+  border: 1px solid black;
+  background-color: lightgray;
+}
+
+.imageCls {
+  width: 20px;
+  height: 20px;
+  margin-top: 10px;
+}
+.left {
+  margin-left: auto;
+}
+.contentClas {
+  margin-left: 10px;
+}
