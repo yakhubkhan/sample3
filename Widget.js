@@ -13,6 +13,7 @@ function Widget(props) {
           value: "phobos",
           label: "Phobos",
           showCheckbox: false,
+          content: "this is from phobos",
           children: [
             { value: "jupiter", label: "jupiter", showCheckbox: false },
             { value: "Mars", label: "Mars", showCheckbox: false },
@@ -25,7 +26,7 @@ function Widget(props) {
   const [checked, setChecked] = useState([]);
   const [expanded, setExpanded] = useState([]);
   const onClick = (clicked) => {
-    //console.log(props);
+    console.log(clicked);
     props.content(clicked.value);
   };
 

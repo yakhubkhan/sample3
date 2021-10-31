@@ -12,7 +12,9 @@ import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
   const [isHide, setIsHide] = useState(false);
   const [img, setImg] = useState(faAngleUp);
+
   const [content, setContent] = useState("Main Content");
+  const [belowTab, setBelowTab] = useState("Home");
   const hideBelow = () => {
     setIsHide(!isHide);
     if (isHide) {
@@ -20,6 +22,9 @@ const Navbar = () => {
     } else {
       setImg(faAngleDown);
     }
+  };
+  const clickOption = (value) => {
+    setBelowTab(value);
   };
   return (
     <>
@@ -49,7 +54,9 @@ const Navbar = () => {
           <Nav.Link href="/home">Active</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link-1">Option 2</Nav.Link>
+          <Nav.Link eventKey="link-1" onClick={() => clickOption("option 2")}>
+            Option 2
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link eventKey="disabled" disabled>
@@ -64,7 +71,7 @@ const Navbar = () => {
         <div className="downPanel">
           <Container fluid>
             <Row>
-              <Col>fsdfdsfds</Col>
+              <Col>{belowTab}</Col>
             </Row>
             <Row></Row>
           </Container>
@@ -88,7 +95,7 @@ const Navbar = () => {
           grabberSize: "1rem",
         }}
       >
-        <div>
+        <div className="sideBar">
           {/* <TreeExample content={setContent} /> */}
           <Widget content={setContent}></Widget>
         </div>
