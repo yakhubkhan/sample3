@@ -1,0 +1,108 @@
+import React from "react";
+import TreeView from "devextreme-react/tree-view";
+import ContextMenu from "devextreme-react/context-menu";
+import List from "devextreme-react/list";
+import "../App.css";
+import service from "./data.js";
+
+class DevTree extends React.Component {
+  constructor(props) {
+    super(props);
+    this.contextMenuRef = React.createRef();
+    this.treeViewRef = React.createRef();
+
+    this.state = {
+      products: service.getProducts(),
+      menuItems: service.getMenuItems(),
+      logItems: [],
+      selectedTreeItem: undefined,
+    };
+    console.log(props);
+    this.setContent = props.content;
+    this.treeViewItemContextMenu = this.treeViewItemContextMenu.bind(this);
+    this.contextMenuItemClick = this.contextMenuItemClick.bind(this);
+    this.onItemClick = this.onItemClick.bind(this);
+  }
+
+  render() {
+    return (
+      <div className="form">
+        <TreeView
+          id="treeview"
+          ref={this.treeViewRef}
+          items={this.state.products}
+          width={300}
+          height={1000}
+          onItemClick={this.onItemClick}
+          onItemContextMenu={this.treeViewItemContextMenu}
+        />
+        <ContextMenu
+          ref={this.contextMenuRef}
+          dataSource={this.state.menuItems}
+          target="#treeview .dx-treeview-item"
+          onItemClick={this.contextMenuItemClick}
+        />
+      </div>
+    );
+  }
+  onItemClick(e) {
+    console.log(e.node.text);
+    this.setContent(e.node.text);
+  }
+
+  get treeView() {
+    return this.treeViewRef.current.instance;
+  }
+
+  get contextMenu() {
+    return this.contextMenuRef.current.instance;
+  }
+
+  treeViewItemContextMenu(e) {
+    this.setState({
+      selectedTreeItem: e.itemData,
+    });
+
+    const isProduct = e.itemData.price !== undefined;
+    this.contextMenu.option("items[0].visible", true);
+    this.contextMenu.option("items[1].visible", true);
+    this.contextMenu.option("items[2].visible", true);
+    this.contextMenu.option("items[3].visible", true);
+
+    this.contextMenu.option("items[0].disabled", e.node.expanded);
+    this.contextMenu.option("items[1].disabled", !e.node.expanded);
+  }
+
+  contextMenuItemClick(e) {
+    let logEntry = "";
+    switch (e.itemData.id) {
+      case "expand": {
+        logEntry = `The '${this.state.selectedTreeItem.text}' group was expanded`;
+        this.treeView.expandItem(this.state.selectedTreeItem.id);
+        break;
+      }
+      case "collapse": {
+        logEntry = `The '${this.state.selectedTreeItem.text}' group was collapsed`;
+        this.treeView.collapseItem(this.state.selectedTreeItem.id);
+        break;
+      }
+      case "details": {
+        logEntry = `Details about '${this.state.selectedTreeItem.text}' were displayed`;
+        break;
+      }
+      case "copy": {
+        logEntry = `Information about '${this.state.selectedTreeItem.text}' was copied`;
+        break;
+      }
+      default:
+        break;
+    }
+    // const logItems = this.state.logItems.concat([logEntry]);
+
+    // this.setState({
+    //   logItems,
+    // });
+  }
+}
+
+export default DevTree;

@@ -6,6 +6,7 @@ import { SplitPane } from "react-collapse-pane";
 import Basictree from "./Basictree";
 import TreeExample from "./Treebeard";
 import Widget from "./Widget";
+import DevTree from "./DevTree";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -97,7 +98,8 @@ const Navbar = () => {
       >
         <div className="sideBar">
           {/* <TreeExample content={setContent} /> */}
-          <Widget content={setContent}></Widget>
+          {/* <Widget content={setContent}></Widget> */}
+          <DevTree content={setContent}></DevTree>
         </div>
         <div className="contentClas">{content}</div>
       </SplitPane>
